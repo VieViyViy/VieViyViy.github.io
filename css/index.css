@@ -111,8 +111,10 @@ strong {
 }
 
 .header .button {
-  font-size: 25px; /* Adjust the font size as needed */
-  padding: 10px 25px; /* Adjust the padding as needed */
+  font-size: clamp(16px, 2.5vw, 25px);
+    /* Responsive padding (scales with font size) */
+  padding: clamp(6px, 1.5vw, 10px) clamp(15px, 3vw, 25px);
+  white-space: nowrap;
 }
 
 .button {
@@ -178,6 +180,7 @@ strong {
   top: 0;
   z-index: 1000;
   padding: var(--base-spacing) 0;
+  text-align: center;
 }
 
 .header .container {
@@ -186,9 +189,9 @@ strong {
   padding: var(--base-spacing);
   max-width: 95%;
   margin: 0 auto;
-  display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .video {
@@ -213,6 +216,16 @@ strong {
   z-index: 10; /* Set a higher z-index to appear above the video */
   display: flex; /* Set display to flex to make items horizontal */
   justify-content: center; /* Center the items horizontally */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.countdown ul {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  padding: 0;
+  margin: 0;
 }
 
 .countdown-item {
@@ -402,11 +415,12 @@ strong {
 }
 
 .modal-content {
-  display: block;
-  margin: auto;
+  position: relative;
+  top: 50%;
+  left: 50%;
   max-width: 95%;
   max-height: 85%;
-  margin-top: 5%;
+  transform: translate(-50%, -50%);
 }
 
 .close {

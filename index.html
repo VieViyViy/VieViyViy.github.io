@@ -44,7 +44,7 @@
         </button>        
         
         <div class="countdown">
-            <ul class="countdown d-flex flex-wrap align-items-center">
+            <ul class="countdown d-flex align-items-center">
                 <li class="countdown-item d-flex flex-column justify-content-center align-items-center">
                     <h2 class="countdown-title hours" style="padding: 0;">00</h2>
                 </li>
@@ -83,9 +83,9 @@
                     <li><strong>Label Encoding & Split:</strong> Categorical mapping; stratified 70-15-15 train-validation-test split.</li>
                     <li><strong>Model Architectures:</strong>
                         <ul>
-                            <li>🟦 <strong>1D CNN:</strong> Two convolutional layers → MaxPooling → Dropout → Dense → Softmax.</li>
-                            <li>🟨 <strong>LSTM:</strong> Two stacked LSTM layers → LayerNorm → Dropout → Dense → Softmax.</li>
-                            <li>🟥 <strong>GRU:</strong> Two stacked Bidirectional GRUs → LayerNorm → Dropout → Dense → Softmax.</li>
+                            <li><strong>1D CNN:</strong> Two convolutional layers → MaxPooling → Dropout → Dense → Softmax.</li>
+                            <li><strong>LSTM:</strong> Two stacked LSTM layers → LayerNorm → Dropout → Dense → Softmax.</li>
+                            <li><strong>GRU:</strong> Two stacked Bidirectional GRUs → LayerNorm → Dropout → Dense → Softmax.</li>
                         </ul>
                     </li>
                     <li><strong>Training:</strong> Adam optimizer (LR=1e-4), L2 regularization, dropout, early stopping.</li>

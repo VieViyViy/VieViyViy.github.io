@@ -7,37 +7,48 @@
   --body-font-family:             'Poppins', sans-serif;
   --heading-font-family:          'Unbounded', sans-serif;
 
-  --p-font-size:                  18px;
-  --menu-font-size:               16px;
+  /* Responsive font sizes */
+  --base-font-size: clamp(16px, 2vw, 18px);
+  --h1-font-size: clamp(2rem, 5vw, 3rem);
+  --h2-font-size: clamp(1.75rem, 4vw, 2.5rem);
+  --h3-font-size: clamp(1.5rem, 3.5vw, 2rem);
+  --h4-font-size: clamp(1.25rem, 3vw, 1.5rem);
+  --h5-font-size: clamp(1rem, 2.5vw, 1.25rem);
+  --h6-font-size: clamp(0.875rem, 2vw, 1rem);
 
-  --border-radius-large:          100px;
-  --border-radius-medium:         20px;
-  --border-radius-small:          10px;
+  /* Spacing */
+  --base-spacing: clamp(0.5rem, 2vw, 1rem);
 
-  --font-weight-normal:           400;
-  --font-weight-medium:           500;
-  --font-weight-bold:             700;
+  /* Border radius */
+  --border-radius-large: 100px;
+  --border-radius-medium: 20px;
+  --border-radius-small: 10px;
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 }
 
 body {
   background-color: var(--body-bg-color);
   font-family: var(--body-font-family); 
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading-font-family);
   font-weight: var(--font-weight-medium);
-  letter-spacing: -1px;
-  padding-bottom: 0;
+  letter-spacing: -0.5px;
+  margin-top: 0;
+  line-height: 1.3;
 }
 
 h1 {
@@ -109,11 +120,13 @@ strong {
   border: 3px solid transparent;
   border-radius: var(--border-radius-large);
   color: var(--white-color);
-  font-size: 20%;
+  font-size: clamp(0.875rem, 3vw, 1rem);
   font-weight: var(--font-weight-bold);
   line-height: normal;
   transition: all 0.3s;
-  padding: 6px 18px;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+  margin: 0.25rem;
+  white-space: nowrap;
 }
 
 .button:hover {
@@ -158,21 +171,24 @@ strong {
   }
 }
 
+/* Layout */
 .header {
   position: absolute;
-  z-index: 1000;
+  width: 100%;
   top: 0;
-  right: 0;
-  left: 0;
-  padding-top: 30px;
-  text-align: center;
+  z-index: 1000;
+  padding: var(--base-spacing) 0;
 }
 
 .header .container {
   background-color: rgba(192, 197, 207, 0.182);
   border-radius: var(--border-radius-large);
-  padding: 15px 25px;
-  max-height: 120px;
+  padding: var(--base-spacing);
+  max-width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .video {
@@ -180,7 +196,7 @@ strong {
 }
 
 .custom-video {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   object-fit: cover;
@@ -299,11 +315,13 @@ audio {
 }
 
 main {
+  top: 100vh;
   position: relative;
   z-index: 10;
+  width: 90%;
   max-width: 1100px;
-  margin: 5rem auto;
-  padding: 3rem;
+  margin: 6rem auto;
+  padding: clamp(1.5rem, 4vw, 3rem);
   background-color: rgba(255, 255, 255, 0.06);
   border-radius: var(--border-radius-medium);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
@@ -315,8 +333,8 @@ main {
 
 section {
   background-color: rgba(255, 255, 255, 0.10);
-  padding: 2.5rem;
-  margin-bottom: 2.5rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   border-radius: var(--border-radius-small);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
@@ -386,21 +404,61 @@ strong {
 .modal-content {
   display: block;
   margin: auto;
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 95%;
+  max-height: 85%;
   margin-top: 5%;
 }
 
 .close {
   position: fixed;
   top: 15px;
-  right: 35px;
+  right: clamp(1rem, 3vw, 2rem);
   color: white;
-  font-size: 40px;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: bold;
   cursor: pointer;
 }
 
 .close:hover {
   color: #ccc;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header .container {
+    padding: 0.75rem;
+  }
+  
+  .countdown {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .countdown-item {
+    margin: 0.5rem 0;
+  }
+  
+  section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --base-font-size: 15px;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  main {
+    margin-top: 8rem;
+    padding: 1rem;
+  }
+  
+  section {
+    padding: 1rem;
+  }
 }

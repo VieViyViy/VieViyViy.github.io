@@ -21,20 +21,15 @@
                     $("title").text(pageTitle);
                 });
             });
-        </script>
-
+        </script>        
+        
         <header class="header">
             <div class="container">
                     <a href="index.html"><button class="button">Home</button></a>
-                    <a href="listofwork.html"><button class="button">List of Works</button></a>
-                    <a href="aboutme.html"><button class="button">About Me</button></a>
-                    <a href="contact.html"><button class="button">Contacts</button></a>
+                    <a href="codetraining.html"><button class="button">Code and Training</button></a>
+                    <a href="references.html"><button class="button">References</button></a>
             </div>
         </header>
-
-        <div class="spotify-player">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4v9iCmIp3pF0JGbzyknrrp?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-        </div>
 
         <div class="video">
             <video autoplay="" loop="" muted="" class="custom-video" poster="">
@@ -42,6 +37,10 @@
                 Your browser does not support the video.
             </video>
         </div>
+
+        <button class="scroll-down-btn" onclick="scrollToMain()">
+            ↓
+        </button>        
         
         <div class="countdown">
             <ul class="countdown d-flex flex-wrap align-items-center">
@@ -67,6 +66,70 @@
                 </li>
             </ul>
         </div>
+
+        <main>
+            <section id="abstract">
+                <h2>🔍 Abstract</h2>
+                <p>
+                    This study explores deep learning models—1D CNN, LSTM, and GRU—for classifying five types of breathing patterns (Hold, Deep, Deep Quick, Quick, Normal) using time-series sensor data. Each architecture is trained and evaluated using accuracy, F1-score, and confusion matrices. 1D CNN achieved highest accuracy (96%) but showed overfitting. GRU balanced speed and performance, suggesting its practicality for real-time health applications.
+                </p>
+            </section>
+        
+            <section id="methodology">
+                <h2>🧪 Methodology</h2>
+                <ul>
+                    <li><strong>Data Preprocessing:</strong> Zero values replaced and removed; normalized and downsampled to equal sequence lengths.</li>
+                    <li><strong>Label Encoding & Split:</strong> Categorical mapping; stratified 70-15-15 train-validation-test split.</li>
+                    <li><strong>Model Architectures:</strong>
+                        <ul>
+                            <li>🟦 <strong>1D CNN:</strong> Two convolutional layers → MaxPooling → Dropout → Dense → Softmax.</li>
+                            <li>🟨 <strong>LSTM:</strong> Two stacked LSTM layers → LayerNorm → Dropout → Dense → Softmax.</li>
+                            <li>🟥 <strong>GRU:</strong> Two stacked Bidirectional GRUs → LayerNorm → Dropout → Dense → Softmax.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Training:</strong> Adam optimizer (LR=1e-4), L2 regularization, dropout, early stopping.</li>
+                </ul>
+            </section>
+        
+            <section id="results">
+                <h2>📊 Results</h2>
+                <p>
+                    <strong>1D CNN:</strong> Highest accuracy (96%) but overfitting.<br>
+                    <strong>LSTM:</strong> Stable performance (90%) with long-term pattern learning.<br>
+                    <strong>GRU:</strong> Balanced model (91%), fastest to converge, good generalization.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <div style="flex: 1;"><img src="images/cnn-accuracy.png" alt="1D CNN Accuracy Graph" style="width: 100%; max-width: 300px;"></div>
+                    <div style="flex: 1;"><img src="images/lstm-accuracy.png" alt="LSTM Accuracy Graph" style="width: 100%; max-width: 300px;"></div>
+                    <div style="flex: 1;"><img src="images/gru-accuracy.png" alt="GRU Accuracy Graph" style="width: 100%; max-width: 300px;"></div>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1rem;">
+                    <div style="flex: 1;"><img src="images/cnn-confusion.png" alt="1D CNN Confusion Matrix" style="width: 100%; max-width: 300px;"></div>
+                    <div style="flex: 1;"><img src="images/lstm-confusion.png" alt="LSTM Confusion Matrix" style="width: 100%; max-width: 300px;"></div>
+                    <div style="flex: 1;"><img src="images/gru-confusion.png" alt="GRU Confusion Matrix" style="width: 100%; max-width: 300px;"></div>
+                </div>
+            </section>
+        
+            <section id="conclusion">
+                <h2>🧾 Conclusion</h2>
+                <p>
+                    While 1D CNN produced the best accuracy, it required aggressive regularization. LSTM handled temporal patterns well, but GRU offered a strong trade-off between speed, performance, and generalization. GRU is recommended for real-time applications. Future improvements may involve attention mechanisms or hybrid architectures.
+                </p>
+            </section>
+        
+            <section id="resources">
+                <h2>Downloads & Resources</h2>
+                <ul>
+                    <li><a href="poster.pdf" target="_blank">Download Poster (PDF)</a></li>
+                    <li>Interactive Colab Notebook (To be Added)</li>
+                    <li>GitHub Repository (To be Added)</li>
+                </ul>
+            </section>
+        </main>        
+
+        <footer>
+            <p>© 2025 V Angel — Sampoerna University</p>
+        </footer>
         
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script>
@@ -118,6 +181,51 @@
             // Initialize the clock
             $(document).ready(function () {
                 $(".countdown").countdown();
+            });
+        </script>
+
+        <script>
+            function scrollToMain() {
+            document.querySelector("main").scrollIntoView({ behavior: "smooth" });
+            }
+        </script>
+
+        <!-- Modal Structure -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+            <div id="caption"></div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Get all images inside the flex containers
+            const images = document.querySelectorAll('div[style*="display: flex"] img');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('caption');
+            const closeBtn = document.querySelector('.close');
+
+            // Open modal when an image is clicked
+            images.forEach(img => {
+                img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+                });
+            });
+
+            // Close modal when X is clicked
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                modal.style.display = 'none';
+                }
+            });
             });
         </script>
 

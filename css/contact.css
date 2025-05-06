@@ -1,0 +1,190 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    padding: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.video {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -100;
+}
+
+.custom-video {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    left: 0.1vw;
+    top: 0.1vh;
+    width: 5%;
+    background-color: #ffffff;
+    z-index: 20;
+    padding-top: 12vh;
+    text-align: center;
+}
+
+.sidebar a {
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar a:hover{
+    animation: textGlowAnimation 5s infinite;
+}
+
+@keyframes textGlowAnimation {
+    0% {
+      text-shadow: 0 0 30px rgba(255, 0, 0, 0.8); /* Red glow */
+      color: rgb(255, 0, 0);
+    }
+    10% {
+      text-shadow: 0 0 30px rgba(255, 255, 0, 0.8); /* Yellow glow */
+      color: rgb(255, 255, 0);
+    }
+    20% {
+      text-shadow: 0 0 30px rgba(0, 255, 0, 0.8); /* Green glow */
+      color: rgb(0, 255, 0);
+    }
+    30% {
+      text-shadow: 0 0 30px rgba(0, 255, 255, 0.8); /* Cyan glow */
+      color: rgb(0, 255, 255);
+    }
+    40% {
+      text-shadow: 0 0 30px rgba(0, 0, 255, 0.8); /* Blue glow */
+      color: rgb(0, 0, 255);
+    }
+    50% {
+      text-shadow: 0 0 30px rgba(128, 0, 255, 0.8); /* Purple glow */
+      color: rgb(128, 0, 255);
+    }
+    60% {
+      text-shadow: 0 0 30px rgba(255, 0, 255, 0.8); /* Magenta glow */
+      color: rgb(255, 0, 255);
+    }
+    70% {
+      text-shadow: 0 0 30px rgba(255, 255, 0, 0.8); /* Yellow glow */
+      color: rgb(255, 255, 0);
+    }
+    80% {
+      text-shadow: 0 0 30px rgba(0, 255, 0, 0.8); /* Green glow */
+      color: rgb(0, 255, 0);
+    }
+    90% {
+      text-shadow: 0 0 30px rgba(0, 0, 255, 0.8); /* Blue glow */
+      color: rgb(0, 0, 255);
+    }
+    100% {
+      text-shadow: 0 0 30px rgba(128, 0, 255, 0.8); /* Purple glow */
+      color: rgb(128, 0, 255);
+    }
+  }
+
+.icons {
+    position: fixed;
+    right: 0.1vw;
+    top: 0.1vh;
+    width: 5%;
+}
+
+.image-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-list a {
+    margin-bottom: -0.3vh;
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
+.image-list img {
+    max-width: 100%;
+    height: auto;
+}
+
+main {
+    position: relative;
+    z-index: 10;
+    padding: 20px;
+    left: 5%;
+    width: 87.5%;
+}
+
+.image-section {
+    border: 2px solid #000000;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: none; /* Initially hide the image sections */
+}
+
+.image-section:target {
+    display: block; /* Show the targeted image section */
+}
+
+img {
+    max-width: 30%;
+    height: auto;
+}
+
+/* The device with borders */
+.smartphone {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    margin: auto;
+    border: 16px black solid;
+    border-top-width: 60px;
+    border-bottom-width: 60px;
+    border-radius: 36px;
+  }
+  
+  /* The horizontal line on the top of the device */
+  .smartphone:before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 10px;
+  }
+  
+  /* The circle on the bottom of the device */
+  .smartphone:after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 50%;
+    bottom: -65px;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 50%;
+  }
+  
+  /* The screen (or content) of the device */
+  .smartphone .content {
+    width: 360px;
+    height: 640px;
+    background: white;
+  }

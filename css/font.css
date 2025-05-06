@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'katakana1';
+    src: url(../fonts/SF%20Mono%20Square%20Regular.otf) format('opentype');
+  }
+
+@font-face {
+font-family: 'saiba';
+src: url(../fonts/SAIBA-45.ttf) format('truetype');
+}
+
+@font-face {
+font-family: 'saibaoutline';
+src: url(../fonts/SAIBA-45-Outline.ttf) format('truetype');
+}
+
+@font-face {
+font-family: 'genshin';
+src: url(../fonts/Gen%20Shin%20Gothic%20Monospace%20Medium.ttf) format('truetype');
+}
+  

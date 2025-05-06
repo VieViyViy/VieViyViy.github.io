@@ -1,0 +1,64 @@
+<div id="visualizer" style="display: flex; align-items: center;">
+    <input type="file" id="thefile" accept=".mp3,.wav" />
+    <div id="visualizer-container" style="display: flex; align-items: center;">
+        <canvas id="canvas" style="display: flex; align-items: center;"></canvas>
+    </div>
+</div>
+<audio id="audio"></audio>
+
+<script>
+    window.onload = function() {
+        var file = document.getElementById("thefile");
+        var audio = document.getElementById("audio");
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        file.onchange = function() {
+            var files = this.files;
+            audio.src = URL.createObjectURL(files[0]);
+            audio.load();
+            audio.play();
+
+            var context = new AudioContext();
+            var src = context.createMediaElementSource(audio);
+            var analyser = context.createAnalyser();
+
+            src.connect(analyser);
+            analyser.connect(context.destination);
+
+            analyser.fftSize = 512;
+
+            var bufferLength = analyser.frequencyBinCount;
+            console.log(bufferLength);
+
+            var dataArray = new Uint8Array(bufferLength);
+
+            var WIDTH = canvas.width;
+            var HEIGHT = canvas.height;
+
+            var barWidth = 1; // Adjust the width as needed
+            var barSpacing = 1; // Adjust the spacing between bars as needed
+            var x = 0;
+
+            function renderFrame() {
+                requestAnimationFrame(renderFrame);
+
+                x = 0;
+
+                analyser.getByteFrequencyData(dataArray);
+
+                ctx.clearRect(0, 0, WIDTH, HEIGHT); // Clear the canvas
+
+                for (var i = 0; i < bufferLength; i++) {
+                    var barHeight = dataArray[i] / 3; // Scale down the height
+                    ctx.fillStyle = "rgba(255, 255, 255, 1)"; // White color with transparency
+                    ctx.fillRect(x, Math.round((HEIGHT - barHeight) / 2), barWidth, barHeight); // Center the bars vertically
+                    x += barWidth + barSpacing;
+                }
+            }
+
+            audio.play();
+            renderFrame();
+        };
+    };
+</script>

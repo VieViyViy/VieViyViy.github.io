@@ -457,22 +457,61 @@ strong {
   }
 }
 
+.code-container {
+  max-width: 100%;
+  margin: 1rem auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace;
+}
+
+.code-container h3 {
+  background: #2d2d2d;
+  color: white;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.code-container pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  tab-size: 4;
+  line-height: 1.5;
+  white-space: pre;
+}
+
+.code-container code {
+  display: block;
+  font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .code-container h3 {
+      font-size: 1rem;
+      padding: 0.5rem 0.75rem;
+  }
+  
+  .code-container pre {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+  }
+}
+
 @media (max-width: 480px) {
-  :root {
-    --base-font-size: 15px;
+  .code-container pre {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      padding: 0.75rem 0.5rem;
   }
   
-  .button {
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-  }
-  
-  main {
-    margin-top: 8rem;
-    padding: 1rem;
-  }
-  
-  section {
-    padding: 1rem;
+  .code-container {
+      border-radius: 6px;
   }
 }

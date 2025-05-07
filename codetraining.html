@@ -83,7 +83,7 @@ history = model.fit(X_train, y_train,
 
                     </code></pre>
                 </div>
-                <h3></h3>
+                <div class="code-container">
                 <h3>LSTM Model Architecture</h3>
                     <pre><code class="language-python"># LSTM Model
 model = Sequential([
@@ -99,6 +99,7 @@ Dense(num_classes, activation='softmax')
 ])
                     </code></pre>
                 </div>
+            </div>
 
                 <div class="code-container">
                     <h3>Training Loop</h3>
@@ -126,7 +127,7 @@ history = model.fit(
 )
                     </code></pre>
                 </div>
-                <h3></h3>
+                <div class="code-container">
                 <h3>GRU Model Architecture</h3>
                     <pre><code class="language-python"># GRU Model
 input_layer = Input(shape=(X_train.shape[1], X_train.shape[2]))
@@ -148,6 +149,7 @@ output_layer = Dense(num_classes, activation='softmax')(x)
 model = Model(inputs=input_layer, outputs=output_layer)
                     </code></pre>
                 </div>
+            </div>
 
                 <div class="code-container">
                     <h3>Training Loop</h3>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>References</title>
+        <link href="css/references.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <script>
+            // Change tab title when away
+            $(function() {
+                var pageTitle = $("head title").text();
+                
+                $(window).blur(function() {
+                    $("title").text('Wait, come back!!');
+                });
+                
+                $(window).focus(function() {
+                    $("title").text(pageTitle);
+                });
+            });
+        </script>        
+        
+        <header class="header">
+            <div class="container">
+                    <a href="index.html"><button class="button">Home</button></a>
+                    <a href="codetraining.html"><button class="button">Code and Training</button></a>
+                    <a href="references.html"><button class="button">References</button></a>
+            </div>
+        </header>
+
+        <div class="video">
+            <video autoplay loop muted class="custom-video" poster="">
+                <source src="videos/homepage.mp4" type="video/mp4">
+                Your browser does not support the video.
+            </video>
+        </div>
+
+        <main>
+            <section id="research-papers">
+                <h2>📚 Research Papers</h2>
+                <ul>
+                    <li>Mohsen, S. (2023). "Recognition of human activity using GRU deep learning algorithm." <em>Multimedia Tools and Applications</em>, pp. 47733-47749.</li>
+                    <li>Purnomo, A. T., et al. (2022). "Non-Contact Supervision of COVID-19 Breathing Behaviour with FMCW Radar and Stacked Ensemble Learning Model in Real Time." <em>IEEE Transactions on Biomedical Circuits and Systems</em>, 16, pp. 664-678.</li>
+                    <li>Rahul, J. & Sharma, L. D. (2022). "Automatic cardiac arrhythmia classification based on hybrid 1-D CNN and Bi-LSTM model." <em>Biocybernetics and Biomedical Engineering</em>, 42, pp. 321-324.</li>
+                    <li>Tekin, H. & Kaya, Y. (2024). "A Novel Approach for Arrhythmia Classification Using CI-1D-LBP with LSTM, 1D-CNN and GRU Models." <em>Bitlis Eren Üniversitesi Fen Bilimleri Dergisi</em>, pp. 1216-1232.</li>
+                </ul>
+            </section>
+        
+            <section id="datasets">
+                <h2>📊 Dataset</h2>
+                <ul>
+                    <li>Purnomo, A. T., et al. (2022). <strong>BWD: Breathing Waveform Dataset</strong>. <em>figshare</em>. Available at: <a href="https://figshare.com/articles/dataset/BWF_Breathing_Waveform_Dataset/20001326?file=35905649" target="_blank">https://figshare.com/articles/dataset/BWF_Breathing_Waveform_Dataset/20001326</a></li>
+                </ul>
+            </section>
+        </main>        
+
+        <footer>
+            <p>© 2025 V Angel — Sampoerna University</p>
+        </footer>
+        
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            (function ($) {
+                $.fn.countdown = function (options, callback) {
+                    thisEl = $(this);
+                    var settings = {'format': null};
+                    if (options) { $.extend(settings, options); }
+                    
+                    function clock_proc() {
+                        var currentDate = new Date();
+                        var hours = currentDate.getHours();
+                        var minutes = currentDate.getMinutes();
+                        var seconds = currentDate.getSeconds();
+
+                        if (settings['format'] == "on") {
+                            hours = (String(hours).length >= 2) ? hours : "0" + hours;
+                            minutes = (String(minutes).length >= 2) ? minutes : "0" + minutes;
+                            seconds = (String(seconds).length >= 2) ? seconds : "0" + seconds;
+                        }
+
+                        thisEl.find(".hours").text(hours);
+                        thisEl.find(".minutes").text(minutes);
+                        thisEl.find(".seconds").text(seconds);
+                    }
+                    
+                    clock_proc();
+                    var interval = setInterval(clock_proc, 1000);
+                }
+            })(jQuery);
+        
+            $(document).ready(function () {
+                $(".countdown").countdown();
+            });
+        </script>
+
+        <script>
+            function scrollToMain() {
+                document.querySelector("main").scrollIntoView({ behavior: "smooth" });
+            }
+        </script>
+
+        <!-- Modal Structure -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+            <div id="caption"></div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const images = document.querySelectorAll('div[style*="display: flex"] img');
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const captionText = document.getElementById('caption');
+                const closeBtn = document.querySelector('.close');
+
+                images.forEach(img => {
+                    img.addEventListener('click', function() {
+                        modal.style.display = 'block';
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

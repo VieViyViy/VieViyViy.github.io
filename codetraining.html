@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Code & Training</title>
+        <link href="css/codetraining.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <script>
+            // Change tab title when away
+            $(function() {
+                var pageTitle = $("head title").text();
+                
+                $(window).blur(function() {
+                    $("title").text('Wait, come back!!');
+                });
+                
+                $(window).focus(function() {
+                    $("title").text(pageTitle);
+                });
+            });
+        </script>        
+        
+        <header class="header">
+            <div class="container">
+                    <a href="index.html"><button class="button">Home</button></a>
+                    <a href="codetraining.html"><button class="button">Code and Training</button></a>
+                    <a href="references.html"><button class="button">References</button></a>
+            </div>
+        </header>
+
+        <div class="video">
+            <video autoplay loop muted class="custom-video" poster="">
+                <source src="videos/homepage.mp4" type="video/mp4">
+                Your browser does not support the video.
+            </video>
+        </div>
+
+        <main>
+            <section id="code-samples">
+                <h2>💻 Code Samples</h2>
+                <div class="code-container">
+                    <h3>1D CNN Model Architecture</h3>
+                    <pre><code class="language-python"># 1D CNN Model
+model = Sequential([
+    Input(shape=(85, 1)),
+    Conv1D(32, 3, activation='relu', kernel_regularizer=l2(0.001)),
+    MaxPooling1D(2),
+    Dropout(0.2),
+
+    Conv1D(64, 3, activation='relu', kernel_regularizer=l2(0.001)),
+    MaxPooling1D(2),
+    Dropout(0.3),
+
+    Flatten(),
+    Dense(64, activation='relu', kernel_regularizer=l2(0.001)),
+    Dropout(0.5),
+    Dense(5, activation='softmax')
+])
+                    </code></pre>
+                </div>
+
+                <div class="code-container">
+                    <h3>Training Loop</h3>
+                    <pre><code class="language-python"># Training Configuration
+model.compile(optimizer=Adam(learning_rate=1e-4),
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+
+# === Callbacks ===
+checkpoint = ModelCheckpoint('best_breathing_model.keras', monitor='val_accuracy', save_best_only=True, verbose=1)
+early_stop = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True, verbose=1)
+
+# === Training ===
+history = model.fit(X_train, y_train,
+                    validation_data=(X_val, y_val),
+                    epochs=1000,
+                    batch_size=32,
+                    callbacks=[checkpoint, early_stop],
+                    verbose=1)
+
+                    </code></pre>
+                </div>
+                <h3></h3>
+                <h3>LSTM Model Architecture</h3>
+                    <pre><code class="language-python"># LSTM Model
+model = Sequential([
+Input(shape=(X_train.shape[1], X_train.shape[2])),
+LSTM(64, return_sequences=True),
+LayerNormalization(),
+Dropout(0.3),
+LSTM(32),
+LayerNormalization(),
+Dropout(0.3),
+Dense(32, activation='relu'),
+Dense(num_classes, activation='softmax')
+])
+                    </code></pre>
+                </div>
+
+                <div class="code-container">
+                    <h3>Training Loop</h3>
+                    <pre><code class="language-python"># Training Configuration
+model.compile(
+    loss='categorical_crossentropy',
+    optimizer='adam',
+    metrics=['accuracy']
+)
+
+model.summary()
+
+# === Callbacks ===
+early_stop = EarlyStopping(monitor='val_loss', patience=7, restore_best_weights=True)
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=3, min_lr=1e-5, verbose=1)
+
+# === Training ===
+history = model.fit(
+    X_train, y_train,
+    validation_split=0.2,
+    epochs=100,
+    batch_size=64,
+    callbacks=[early_stop, reduce_lr],
+    verbose=2
+)
+                    </code></pre>
+                </div>
+                <h3></h3>
+                <h3>GRU Model Architecture</h3>
+                    <pre><code class="language-python"># GRU Model
+input_layer = Input(shape=(X_train.shape[1], X_train.shape[2]))
+
+x = Bidirectional(GRU(128, return_sequences=True))(input_layer)
+x = Dropout(0.5)(x)
+x = LayerNormalization()(x)
+
+x = Bidirectional(GRU(64))(x)
+x = Dropout(0.4)(x)
+x = LayerNormalization()(x)
+
+x = Dense(64, activation='relu')(x)
+x = Dropout(0.3)(x)
+x = LayerNormalization()(x)
+
+output_layer = Dense(num_classes, activation='softmax')(x)
+
+model = Model(inputs=input_layer, outputs=output_layer)
+                    </code></pre>
+                </div>
+
+                <div class="code-container">
+                    <h3>Training Loop</h3>
+                    <pre><code class="language-python"># Training Configuration
+optimizer = AdamW(learning_rate=0.001, weight_decay=1e-5)
+model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+
+# === Callbacks ===
+lr_scheduler = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=5, min_lr=1e-5, verbose=1)
+early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True, verbose=1)
+
+# === Training ===
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_test, y_test),
+    epochs=100,
+    batch_size=32,
+    callbacks=[lr_scheduler, early_stop],
+    verbose=2
+)
+
+                    </code></pre>
+                </div>
+            </section>
+        
+            <section id="training-data">
+                <h2>📈 Training Data</h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                    <div style="flex: 1;"><img src="images/data-distribution.png" alt="Training Data Distribution" style="width: 100%;;"></div>
+                </div>
+                <div class="code-container">
+                    <h3>Preprocessing</h3>
+                    <pre><code class="language-python"># Prprocessing Dataset
+                        # Load the Excel file into a pandas DataFrame
+  df = pd.read_excel(fn)
+
+  # Remove rows with 0 or null values
+  df_cleaned = df.replace(0, pd.NA).dropna()
+
+  # Normalized Downsampling and Averaging
+    normalized_averaged_signals = []
+    for i, df in enumerate(dfs):
+        # Normalize the data
+        df_normalized = (df - df.min()) / (df.max() - df.min())
+
+        # Downsample to min_samples
+        df_sampled = df_normalized.sample(n=min_samples, random_state=42)
+
+        # Calculate the mean of each column (signal)
+        mean_signal = df_sampled.mean(axis=0)
+        normalized_averaged_signals.append(mean_signal)
+
+        # Create a new DataFrame for the normalized and downsampled data
+        new_df = pd.DataFrame(df_sampled)
+
+        # Save the downsampled data to a new Excel file
+        filename = filenames[i].split('.')[0]  # Get the filename without extension
+        new_filename = f"{filename}_Training_2.xlsx"
+        new_df.to_excel(new_filename, index=False)
+        files.download(new_filename)
+                    </code></pre>
+                </div>
+            </section>
+        </main>        
+
+        <footer>
+            <p>© 2025 V Angel — Sampoerna University</p>
+        </footer>
+        
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            (function ($) {
+                $.fn.countdown = function (options, callback) {
+                    thisEl = $(this);
+                    var settings = {'format': null};
+                    if (options) { $.extend(settings, options); }
+                    
+                    function clock_proc() {
+                        var currentDate = new Date();
+                        var hours = currentDate.getHours();
+                        var minutes = currentDate.getMinutes();
+                        var seconds = currentDate.getSeconds();
+
+                        if (settings['format'] == "on") {
+                            hours = (String(hours).length >= 2) ? hours : "0" + hours;
+                            minutes = (String(minutes).length >= 2) ? minutes : "0" + minutes;
+                            seconds = (String(seconds).length >= 2) ? seconds : "0" + seconds;
+                        }
+
+                        thisEl.find(".hours").text(hours);
+                        thisEl.find(".minutes").text(minutes);
+                        thisEl.find(".seconds").text(seconds);
+                    }
+                    
+                    clock_proc();
+                    var interval = setInterval(clock_proc, 1000);
+                }
+            })(jQuery);
+        
+            $(document).ready(function () {
+                $(".countdown").countdown();
+            });
+        </script>
+
+        <script>
+            function scrollToMain() {
+                document.querySelector("main").scrollIntoView({ behavior: "smooth" });
+            }
+        </script>
+
+        <!-- Modal Structure -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+            <div id="caption"></div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const images = document.querySelectorAll('div[style*="display: flex"] img');
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                const captionText = document.getElementById('caption');
+                const closeBtn = document.querySelector('.close');
+
+                images.forEach(img => {
+                    img.addEventListener('click', function() {
+                        modal.style.display = 'block';
+                        modalImg.src = this.src;
+                        captionText.innerHTML = this.alt;
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            });
+        </script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+    </body>
+</html>
